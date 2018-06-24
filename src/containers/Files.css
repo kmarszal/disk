@@ -1,0 +1,14 @@
+.Files {
+    text-align: center;
+}
+
+.Files .show-grid {
+    max-width:80%;
+}
+
+.Files h4 {
+    font-size: 2em;
+    padding: 1em 0 1.5em 0;
+    font-family: "Open Sans", sans-serif;
+
+}

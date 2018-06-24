@@ -38,6 +38,9 @@ export default class Home extends Component {
 
   }
   renderFileList = (files) => {
+    if(files.length === 0) {
+      return (<h4> No files uploaded </h4>);
+    }
     return files.map(
       (file, _) => 
         <ListGroupItem
@@ -56,22 +59,24 @@ export default class Home extends Component {
     this.props.history.push(event.currentTarget.getAttribute("href"));
   }
 
+
+
   renderFiles = () => {
       return (
         <div className="files">
-        <form>
+        {/* <form onSubmit={this.handleSubmit}>
       
       <FormGroup>
     <InputGroup>
       
       <FormControl type="text" />
       <InputGroup.Button>
-        <Button>Search</Button>
+        <Button type="submit" >Search</Button>
       </InputGroup.Button>
     </InputGroup>
   </FormGroup>
           
-          </form>
+          </form> */}
           
           <ListGroup>
             { !this.state.isLoading && this.renderFileList(this.state.files) }
@@ -82,7 +87,7 @@ export default class Home extends Component {
 
   files() {
     const files = API.get("files", "/files");
-    console.log(files); 
+    // console.log(files); 
     return files;
   }
   

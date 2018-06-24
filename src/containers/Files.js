@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import { API, Storage} from "aws-amplify";
 import LoaderButton from "../components/LoaderButton"
-import { Button } from "react-bootstrap";
+import { Button,Grid, Row, Col } from "react-bootstrap";
 import {s3Remove} from "../libs/awsLib";
-
+import "./Files.css";
 export default class Files extends Component {
     constructor(props) {
         super(props);
@@ -67,7 +67,36 @@ export default class Files extends Component {
                     {this.state.file !== null 
                         && this.state.file.fileName }
                 </h4>
-                <Button
+                <Grid>
+                    <Row className="show-grid">
+                        <Col xs={12} md={8}>
+                        {this.state.file !== null 
+                            && "Uploaded: " + new Date(this.state.file.uploadedAt).toLocaleString()}
+                        </Col>
+                        <Col xs={6} md={4}>
+                            <Button
+                                block
+                                bsSize="large"
+                                bsStyle="primary"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href={this.state.fileURL}
+                            >
+                                Download
+                            </Button>
+                            <LoaderButton
+                                block
+                                bsStyle="danger"
+                                bsSize="large"
+                                isLoading={this.state.isDeleting}
+                                onClick={this.handleDelete}
+                                text="Delete"
+                                loadingText="Deleting…"
+                            />
+                    </Col>
+                    </Row>
+                </Grid>
+                {/* <Button
                     block
                     bsSize="large"
                     bsStyle="primary"
@@ -85,7 +114,7 @@ export default class Files extends Component {
                     onClick={this.handleDelete}
                     text="Delete"
                     loadingText="Deleting…"
-                />
+                /> */}
              </div>
         );
     }

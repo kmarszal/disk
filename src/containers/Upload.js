@@ -1,13 +1,12 @@
 import React, { Component} from "react";
 import "./Upload.css";
 import { API } from "aws-amplify";
-import {
-    FormGroup,
-    FormControl,
-    ControlLabel
-} from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { s3Upload } from "../libs/awsLib";
+import "./Upload.css";
+import Dropzone from 'react-dropzone'
+import {FormGroup, FormControl, ControlLabel} from "react-bootstrap";
+
 
 
 export default class Upload extends Component {
@@ -30,7 +29,6 @@ export default class Upload extends Component {
     handleSubmit = async event => {
         event.preventDefault();
         this.setState({ isLoading: true});
-        console.log(this.state.file)
         try {
             const fileURL = await s3Upload(this.state.file);
     
@@ -50,27 +48,50 @@ export default class Upload extends Component {
             file: event.target.files[0],
         });
     }
+    onDrop(files) {
+        this.setState({
+          file: files[0],
+        });
+      }
 
     
     render() {
         return (
             <div className="Upload">
-                <form onSubmit={this.handleSubmit}>
-                    <FormGroup controlId="file">
-                        <ControlLabel>Choose file</ControlLabel>
-                        <FormControl onChange={this.handleFileChange} type="file"/>
-                    </FormGroup>
+                <div className="dropzone">
+                    <Dropzone onDrop={this.onDrop.bind(this)}>
+                        <p className="droptext" >Drop some file here, or click to select file to upload.</p>
+                    </Dropzone>
+                </div>
+                <div className="file">
+                    <h4>
+                        {this.state.file !== null ? this.state.file.name : "No file selected."}
+                    </h4>
+                </div>
+                <div className="button">
+                    <form onSubmit={this.handleSubmit}>
+                        {/* <FormGroup controlId="file">
+                            <ControlLabel>Choose file</ControlLabel>
+                            <FormControl  
+                                    // block
+                                    // bsSize="large"
+                                    // bsStyle="primary"
+                                    onChange={this.handleFileChange} 
+                                    type="file"/>
+                        </FormGroup> */}
+
                     <LoaderButton
                         block
                         bsStyle="primary"
                         bsSize="large"
-                        disabled={this.state.file === null}
                         type="submit"
+                        disabled={this.state.file === null}
                         isLoading={this.state.isLoading}
                         text="Upload"
                         loadingText="Uploading"
                     />
-                </form>
+                    </form>
+                </div>
             </div>
         );
     }

@@ -1,3 +1,26 @@
-.Upload form {
-    padding-bottom: 15px,
+.Upload {
+    text-align: center;
 }
+
+.Upload .dropzone{
+    margin: 0 auto;
+    max-width: 200px;
+    padding: 2em 0 2em 0;
+}
+
+.Upload .button {
+    margin: 0 auto;
+    max-width: 40%;
+    padding: 0.5em 0 2em 0;
+}
+.Upload .droptext {
+    margin: auto;
+    width: 100%;
+    padding-top: 50px;
+}
+
+.Upload h4 {
+    font-family: "Open Sans", sans-serif;
+
+}
+
