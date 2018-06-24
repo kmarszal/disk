@@ -1,0 +1,16 @@
+version: 0.2
+
+phases:
+    install:
+        commands:
+            - npm install
+    pre_build:
+        commands:
+            - aws s3 cp s3://disk-app-config/client ./src --recursive
+    build:
+        commands:
+            - npm run build
+            - aws s3 sync build/ s3://disk-app-client
+
+artifacts:
+    discard-paths: yes
