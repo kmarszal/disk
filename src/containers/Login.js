@@ -59,7 +59,7 @@ export default class Login extends Component {
                     </FormGroup>
                     <FormGroup controlId="password" bsSize="large">
                         <ControlLabel>
-                            Passowrd
+                            Password
                         </ControlLabel>
                         <FormControl
                             type="password"
